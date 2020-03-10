@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.demoapplication.Modal.Song;
 import com.example.demoapplication.R;
@@ -27,6 +28,8 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.SongsViewHol
     MediaPlayer mp = new MediaPlayer();
     List<Song> songs;
     Context mcontext;
+
+
 
 
 
@@ -58,10 +61,10 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.SongsViewHol
             @Override
             public void onClick(View v) {
 
-                songsViewHolder.imgBtn.setImageDrawable(mcontext.getDrawable(ic_pause_circle_filled_black_24dp));
-                try {
 
-                     playSong(songs.get(position).getUrl(),position);
+                try {
+                    playSong(songs.get(position).getUrl(),position);
+                     Toast. makeText(mcontext,"Playing Song "+songs.get(position).getSong()+" Please have patience!", Toast. LENGTH_SHORT).show();
                    } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -82,6 +85,8 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.SongsViewHol
              //mp=null;
 //             ;
          }
+
+
         mp.setDataSource(url);
         mp.prepare();
         mp.start();
