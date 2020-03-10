@@ -1,7 +1,9 @@
 package com.example.demoapplication.Activities;
 
 import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -24,14 +26,10 @@ import static com.example.demoapplication.R.drawable.ic_pause_circle_filled_blac
 import static com.example.demoapplication.R.drawable.play_button;
 
 public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.SongsViewHolder> {
-
+// USED TO DISPLAY DATA IN RECYCLER VIEW
     MediaPlayer mp = new MediaPlayer();
     List<Song> songs;
     Context mcontext;
-
-
-
-
 
     public  SongsAdapter(List<Song> songs, Context mcontext)
     {
@@ -56,15 +54,19 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.SongsViewHol
         songsViewHolder.tvArtists.setText(songs.get(i).getArtists());
         Picasso.get().load(songs.get(i).getCover_image()).into(songsViewHolder.imgCover);
 
+
           songsViewHolder.imgBtn.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
             @Override
             public void onClick(View v) {
 
 
                 try {
-                    playSong(songs.get(position).getUrl(),position);
+
+                      playSong(songs.get(position).getUrl());
+
                      Toast. makeText(mcontext,"Playing Song "+songs.get(position).getSong()+" Please have patience!", Toast. LENGTH_SHORT).show();
+
                    } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -75,22 +77,29 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.SongsViewHol
     }
 
 
-    void playSong(String url,int position) throws IOException {
-        int preIndex=position;
-         if(mp.isPlaying())
-         {
-              mp.reset();
-             // mp.stop();
-             //mp.release();
-             //mp=null;
-//             ;
-         }
+    void playSong(String url) throws IOException {
+
+//         if(mp.isPlaying())
+//         {
+//              mp.reset();
+//
+//         }
 
 
+        mp.reset();
+        mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mp.setDataSource(url);
-        mp.prepare();
-        mp.start();
-//       song.stop();
+        mp.prepareAsync();
+        mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+            @Override
+            public void onPrepared(MediaPlayer player) {
+                player.start();
+            }
+
+        });
+
+
     }
 
     @Override

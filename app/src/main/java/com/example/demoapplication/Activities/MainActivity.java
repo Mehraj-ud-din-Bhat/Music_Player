@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
        textViewResult = findViewById(R.id.texttest);
        songListrv=findViewById(R.id.rvSongs);
-       songListrv.setLayoutManager(new LinearLayoutManager(this));
        getSongs();
 
 
@@ -59,8 +58,9 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 // If Response Is Succesful: Data Is Sent to Recycler View
-                 songs = response.body();
-                 songListrv.setAdapter(new SongsAdapter(songs,MainActivity.this));
+                   songs = response.body();
+                   songListrv.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                   songListrv.setAdapter(new SongsAdapter(songs,MainActivity.this));
 
 
             }
