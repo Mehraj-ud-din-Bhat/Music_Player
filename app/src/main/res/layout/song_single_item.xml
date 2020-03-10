@@ -65,6 +65,7 @@
             android:layout_toRightOf="@+id/frame_layout"
             android:gravity="center"
             android:text="Artist Name"
+            android:padding="3dp"
             android:textSize="15dp"
             card_view:fontFamily="@font/montserrat" />
 
