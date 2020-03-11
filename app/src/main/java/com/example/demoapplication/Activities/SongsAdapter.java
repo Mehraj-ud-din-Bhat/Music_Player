@@ -69,7 +69,7 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.SongsViewHol
 
 
                        prevSong=songsViewHolder ;
-                      songsViewHolder.imgBtn.setImageDrawable(mcontext.getResources().getDrawable(ic_pause_circle_filled_black_24dp));
+                    songsViewHolder.imgBtn.setImageDrawable(mcontext.getResources().getDrawable(ic_pause_circle_filled_black_24dp));
 
 
                       playSong(songs.get(position).getUrl());
