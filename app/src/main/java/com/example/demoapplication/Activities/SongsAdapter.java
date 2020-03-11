@@ -30,6 +30,7 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.SongsViewHol
     MediaPlayer mp = new MediaPlayer();
     List<Song> songs;
     Context mcontext;
+    SongsViewHolder prevSong=null;
 
     public  SongsAdapter(List<Song> songs, Context mcontext)
     {
@@ -62,10 +63,17 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.SongsViewHol
 
 
                 try {
+                    //Used to swap play btn images
+                    if(prevSong !=null)
+                        prevSong.imgBtn.setImageDrawable(mcontext.getResources().getDrawable(play_button));
+
+
+                       prevSong=songsViewHolder ;
+                      songsViewHolder.imgBtn.setImageDrawable(mcontext.getResources().getDrawable(ic_pause_circle_filled_black_24dp));
+
 
                       playSong(songs.get(position).getUrl());
-
-                     Toast. makeText(mcontext,"Playing Song "+songs.get(position).getSong()+" Please have patience!", Toast. LENGTH_SHORT).show();
+                      Toast. makeText(mcontext,"Playing Song "+songs.get(position).getSong()+" Please have patience!", Toast. LENGTH_SHORT).show();
 
                    } catch (IOException e) {
                     e.printStackTrace();
